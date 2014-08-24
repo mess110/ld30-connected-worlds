@@ -34,6 +34,7 @@ player = new Zombie();
 scene.add(player.mesh);
 
 updateFcts.push(function(delta, now) {
+  player.mesh.rotation.y += delta * 1;
   if (keyboard.pressed("w")) {
     player.directionZ = -1;
   }
@@ -55,7 +56,7 @@ updateFcts.push(function(delta, now) {
   return player.move(delta);
 });
 
-zpotLight = new Spotlight(0, 2.5, 0);
+zpotLight = new Spotlight(0, 2.5, 2);
 
 scene.add(zpotLight.spotLight);
 

@@ -9,7 +9,7 @@ class Spotlight
     @volumetricSpotlight  = new THREE.Mesh(geometry, material)
     @volumetricSpotlight.position.set x, y, z
     @volumetricSpotlight.lookAt new THREE.Vector3(0, 0, 0)
-    material.uniforms.lightColor.value.set "#FF0000"
+    material.uniforms.lightColor.value.set "#FFFFFF"
     material.uniforms.spotPosition.value = @volumetricSpotlight.position
 
     @spotLight = new THREE.SpotLight()

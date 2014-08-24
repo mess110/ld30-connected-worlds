@@ -19,14 +19,7 @@ player = new Zombie()
 scene.add player.mesh
 
 updateFcts.push (delta, now) ->
-  # dist = zpotLight.distanceTo(cube)
-  #if dist > 3
-    #scene.remove spotLight
-    #scene.remove volumetricSpotlight
-  #else
-    #scene.add spotLight
-    #scene.add volumetricSpotlight
-
+  player.mesh.rotation.y += delta * 1
   player.directionZ = -1 if keyboard.pressed("w")
   player.directionZ = 1 if keyboard.pressed("s")
   player.directionZ = 0 if !keyboard.pressed("s") and !keyboard.pressed("w")
@@ -36,7 +29,7 @@ updateFcts.push (delta, now) ->
 
   player.move(delta)
 
-zpotLight = new Spotlight(0, 2.5, 0)
+zpotLight = new Spotlight(0, 2.5, 2)
 scene.add zpotLight.spotLight
 scene.add zpotLight.volumetricSpotlight
 

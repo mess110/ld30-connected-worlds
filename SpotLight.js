@@ -12,7 +12,7 @@ Spotlight = (function() {
     this.volumetricSpotlight = new THREE.Mesh(geometry, material);
     this.volumetricSpotlight.position.set(x, y, z);
     this.volumetricSpotlight.lookAt(new THREE.Vector3(0, 0, 0));
-    material.uniforms.lightColor.value.set("#FF0000");
+    material.uniforms.lightColor.value.set("#FFFFFF");
     material.uniforms.spotPosition.value = this.volumetricSpotlight.position;
     this.spotLight = new THREE.SpotLight();
     this.spotLight.position = this.volumetricSpotlight.position;

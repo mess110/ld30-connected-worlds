@@ -5,9 +5,10 @@ Zombie = (function() {
 
   function Zombie() {
     var geometry, material;
+    this.dynamicTexture = new THREEx.DynamicTexture(30, 30);
     geometry = new THREE.CubeGeometry(0.3, 0.3, 0.3);
     material = new THREE.MeshPhongMaterial({
-      color: new THREE.Color("gray")
+      map: this.dynamicTexture.texture
     });
     this.mesh = new THREE.Mesh(geometry, material);
     this.mesh.position.set(0, geometry.height / 2, 0);
@@ -17,11 +18,16 @@ Zombie = (function() {
     this.directionX = 0;
     this.directionZ = 0;
     this.position = this.mesh.position;
+    this.say('1');
   }
 
   Zombie.prototype.move = function(delta) {
     this.mesh.position.x += this.speed * delta * this.directionX;
     return this.mesh.position.z += this.speed * delta * this.directionZ;
+  };
+
+  Zombie.prototype.say = function(s) {
+    return this.dynamicTexture.drawText(s, 15, 15, 'white');
   };
 
   return Zombie;
