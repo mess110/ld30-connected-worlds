@@ -13,7 +13,7 @@ sm.addScene new Level3()
 sm.addScene new Level4()
 sm.addScene new Level5()
 sm.addScene new Level6()
-sm.setScene 6
+sm.setScene 0
 
 camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.3, 10)
 camera.position.set 0, 2, 5
