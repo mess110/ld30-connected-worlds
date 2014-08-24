@@ -18,6 +18,7 @@
     "threex.windowresize": "*",
     "threex.geometricglow": "*",
     "threex.keyboardstate": "*",
-    "threex.dynamictexture": "*"
+    "threex.dynamictexture": "*",
+    "threex.objcoord": "*"
   }
 }

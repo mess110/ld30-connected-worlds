@@ -5,7 +5,7 @@ Ground = (function() {
 
   function Ground() {
     var geometry, material, mesh2;
-    geometry = new THREE.CubeGeometry(3, 0.1, 3, 3, 1, 3);
+    geometry = new THREE.CubeGeometry(3, 0.1, 5, 3, 1, 5);
     material = new THREE.MeshPhongMaterial({
       color: new THREE.Color("gray")
     });

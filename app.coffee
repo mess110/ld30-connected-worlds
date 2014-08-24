@@ -16,10 +16,18 @@ ground = new Ground()
 scene.add ground.mesh
 
 player = new Zombie()
+player.mesh.position.setZ 1
 scene.add player.mesh
 
+door = new Door()
+door.mesh.position.set -1, 1, -2
+scene.add door.mesh
+
+door = new Door()
+door.mesh.position.set 1, 1, -2
+scene.add door.mesh
+
 updateFcts.push (delta, now) ->
-  player.mesh.rotation.y += delta * 1
   player.directionZ = -1 if keyboard.pressed("w")
   player.directionZ = 1 if keyboard.pressed("s")
   player.directionZ = 0 if !keyboard.pressed("s") and !keyboard.pressed("w")
@@ -29,17 +37,17 @@ updateFcts.push (delta, now) ->
 
   player.move(delta)
 
-zpotLight = new Spotlight(0, 2.5, 2)
+zpotLight = new Spotlight(1, 2.5, 2)
 scene.add zpotLight.spotLight
 scene.add zpotLight.volumetricSpotlight
 
-#zpotLight2 = new Spotlight(3, 2.5, 0)
-#scene.add zpotLight2.spotLight
-#scene.add zpotLight2.volumetricSpotlight
+zpotLight2 = new Spotlight(-1, 2.5, 2)
+scene.add zpotLight2.spotLight
+scene.add zpotLight2.volumetricSpotlight
 
 updateFcts.push (delta, now) ->
   zpotLight.lookAt(player.mesh)
-  #zpotLight2.lookAt(player.mesh)
+  zpotLight2.lookAt(player.mesh)
 
 lastTimeMsec = null
 requestAnimationFrame animate = (nowMsec) ->

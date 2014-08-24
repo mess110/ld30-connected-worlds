@@ -2,10 +2,14 @@
 var Zombie;
 
 Zombie = (function() {
+  var DYNAMIC_TEXTURE_SIZE;
+
+  DYNAMIC_TEXTURE_SIZE = 128;
 
   function Zombie() {
     var geometry, material;
-    this.dynamicTexture = new THREEx.DynamicTexture(30, 30);
+    this.dynamicTexture = new THREEx.DynamicTexture(DYNAMIC_TEXTURE_SIZE, DYNAMIC_TEXTURE_SIZE);
+    this.dynamicTexture.context.font = "30px Verdana";
     geometry = new THREE.CubeGeometry(0.3, 0.3, 0.3);
     material = new THREE.MeshPhongMaterial({
       map: this.dynamicTexture.texture
@@ -18,16 +22,22 @@ Zombie = (function() {
     this.directionX = 0;
     this.directionZ = 0;
     this.position = this.mesh.position;
-    this.say('1');
+    this.say(':D');
   }
 
   Zombie.prototype.move = function(delta) {
     this.mesh.position.x += this.speed * delta * this.directionX;
-    return this.mesh.position.z += this.speed * delta * this.directionZ;
+    this.mesh.position.z += this.speed * delta * this.directionZ;
+    if (this.directionX !== 0 || this.directionZ !== 0) {
+      return this.mesh.rotation.y += this.speed * delta * 8;
+    }
   };
 
   Zombie.prototype.say = function(s) {
-    return this.dynamicTexture.drawText(s, 15, 15, 'white');
+    var half;
+    this.dynamicTexture.clear();
+    half = DYNAMIC_TEXTURE_SIZE / 2;
+    return this.dynamicTexture.drawText(s, half - s.length * 8, half, 'white');
   };
 
   return Zombie;

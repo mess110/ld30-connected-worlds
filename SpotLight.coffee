@@ -5,12 +5,12 @@ class Spotlight
     geometry.applyMatrix new THREE.Matrix4().makeTranslation(0, -geometry.height / 2, 0)
     geometry.applyMatrix new THREE.Matrix4().makeRotationX(-Math.PI / 2)
 
-    material = new THREEx.VolumetricSpotLightMaterial()
-    @volumetricSpotlight  = new THREE.Mesh(geometry, material)
+    @material = new THREEx.VolumetricSpotLightMaterial()
+    @volumetricSpotlight  = new THREE.Mesh(geometry, @material)
     @volumetricSpotlight.position.set x, y, z
     @volumetricSpotlight.lookAt new THREE.Vector3(0, 0, 0)
-    material.uniforms.lightColor.value.set "#FFFFFF"
-    material.uniforms.spotPosition.value = @volumetricSpotlight.position
+    @material.uniforms.lightColor.value.set "white"
+    @material.uniforms.spotPosition.value = @volumetricSpotlight.position
 
     @spotLight = new THREE.SpotLight()
     @spotLight.position = @volumetricSpotlight.position
@@ -29,11 +29,14 @@ class Spotlight
     light.shadowCameraTop = 8
     light.shadowCameraBottom = -8
 
-    # light.shadowCameraVisible = true
+    #light.shadowCameraVisible = true
     light.shadowBias = 0.0
     light.shadowDarkness = 0.5
     light.shadowMapWidth = 1024
     light.shadowMapHeight = 1024
+
+  setColor: (color) ->
+    @material.uniforms.lightColor.value.set color
 
   distanceTo: (node) ->
     @spotLight.position.distanceTo(node.position)

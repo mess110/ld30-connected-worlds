@@ -4,16 +4,16 @@ var Spotlight;
 Spotlight = (function() {
 
   function Spotlight(x, y, z) {
-    var geometry, light, material;
+    var geometry, light;
     geometry = new THREE.CylinderGeometry(0.05, 1.25, 6, 32 * 2, 20, true);
     geometry.applyMatrix(new THREE.Matrix4().makeTranslation(0, -geometry.height / 2, 0));
     geometry.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI / 2));
-    material = new THREEx.VolumetricSpotLightMaterial();
-    this.volumetricSpotlight = new THREE.Mesh(geometry, material);
+    this.material = new THREEx.VolumetricSpotLightMaterial();
+    this.volumetricSpotlight = new THREE.Mesh(geometry, this.material);
     this.volumetricSpotlight.position.set(x, y, z);
     this.volumetricSpotlight.lookAt(new THREE.Vector3(0, 0, 0));
-    material.uniforms.lightColor.value.set("#FFFFFF");
-    material.uniforms.spotPosition.value = this.volumetricSpotlight.position;
+    this.material.uniforms.lightColor.value.set("white");
+    this.material.uniforms.spotPosition.value = this.volumetricSpotlight.position;
     this.spotLight = new THREE.SpotLight();
     this.spotLight.position = this.volumetricSpotlight.position;
     this.spotLight.color = this.volumetricSpotlight.material.uniforms.lightColor.value;
@@ -34,6 +34,10 @@ Spotlight = (function() {
     light.shadowMapWidth = 1024;
     light.shadowMapHeight = 1024;
   }
+
+  Spotlight.prototype.setColor = function(color) {
+    return this.material.uniforms.lightColor.value.set(color);
+  };
 
   Spotlight.prototype.distanceTo = function(node) {
     return this.spotLight.position.distanceTo(node.position);
