@@ -7,7 +7,7 @@ class Level6 extends BaseLevel
     @ground = new Ground()
     @scene.add @ground.mesh
 
-    @counter = new Door("15")
+    @counter = new Door("19")
     @counter.mesh.position.set 0, 0.2, -1
     @scene.add @counter.mesh
 

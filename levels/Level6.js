@@ -12,7 +12,7 @@ Level6 = (function(_super) {
     this.player.say(":D");
     this.ground = new Ground();
     this.scene.add(this.ground.mesh);
-    this.counter = new Door("15");
+    this.counter = new Door("19");
     this.counter.mesh.position.set(0, 0.2, -1);
     this.scene.add(this.counter.mesh);
     this.addSpotlight(0, 2.5, 2);

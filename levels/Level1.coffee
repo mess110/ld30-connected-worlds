@@ -23,7 +23,7 @@ class Level1 extends BaseLevel
 
     if keyboard.pressed("space")
       if @player.mesh.position.distanceTo(@back.mesh.position) < 0.3
-        SceneManager.get().setScene(0)
+        location.reload()
 
       if @player.mesh.position.distanceTo(@door.mesh.position) < 0.3
         SceneManager.get().setScene(2)

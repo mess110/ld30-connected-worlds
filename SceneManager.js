@@ -20,7 +20,7 @@ SceneManager = (function() {
     };
 
     PrivateClass.prototype.setScene = function(i) {
-      var initY;
+      var audio, initY, _i, _len, _ref;
       initY = this.scenes[0].player.baseLevel;
       this.scenes[0].player.position.set(0, initY, 0);
       this.scenes[1].player.position.set(0, initY, 0);
@@ -29,6 +29,13 @@ SceneManager = (function() {
       this.scenes[4].player.position.set(0, initY, 0);
       this.scenes[5].player.position.set(0, 2, 0);
       this.scenes[6].player.position.set(0, initY, 0);
+      _ref = document.getElementsByTagName("audio");
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        audio = _ref[_i];
+        audio.pause();
+      }
+      audio = document.getElementsByTagName("audio")[i];
+      audio.play();
       return this.index = i;
     };
 

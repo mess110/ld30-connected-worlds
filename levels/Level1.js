@@ -26,7 +26,7 @@ Level1 = (function(_super) {
     Level1.__super__.tick.call(this, delta, amount);
     if (keyboard.pressed("space")) {
       if (this.player.mesh.position.distanceTo(this.back.mesh.position) < 0.3) {
-        SceneManager.get().setScene(0);
+        location.reload();
       }
       if (this.player.mesh.position.distanceTo(this.door.mesh.position) < 0.3) {
         return SceneManager.get().setScene(2);

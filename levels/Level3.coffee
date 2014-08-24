@@ -8,7 +8,7 @@ class Level3 extends BaseLevel
     @scene.add @ground.mesh
 
     @van = new Van("van")
-    @van.mesh.position.z = -30
+    @van.mesh.position.z = -40
     @scene.add @van.mesh
 
     @addSpotlight(0, 2.5, 2)
@@ -19,7 +19,7 @@ class Level3 extends BaseLevel
     super(delta, amount)
 
     if @van.mesh.position.z < 2
-      @van.mesh.position.z += 8 * delta
+      @van.mesh.position.z += 6 * delta
 
     if @van.mesh.position.z > @player.mesh.position.z
       @player.canMove = false

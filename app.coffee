@@ -13,7 +13,7 @@ sm.addScene new Level3()
 sm.addScene new Level4()
 sm.addScene new Level5()
 sm.addScene new Level6()
-sm.setScene 4
+sm.setScene 6
 
 camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.3, 10)
 camera.position.set 0, 2, 5
@@ -28,6 +28,9 @@ requestAnimationFrame animate = (nowMsec) ->
   lastTimeMsec = lastTimeMsec or nowMsec - 1000 / 60
   deltaMsec = Math.min(200, nowMsec - lastTimeMsec)
   lastTimeMsec = nowMsec
+
+  if keyboard.pressed("r")
+    location.reload()
 
   sm.tick(deltaMsec / 1000, nowMsec / 1000)
   renderer.render sm.scene().scene, camera

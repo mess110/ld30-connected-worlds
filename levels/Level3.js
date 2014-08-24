@@ -13,7 +13,7 @@ Level3 = (function(_super) {
     this.ground = new Ground();
     this.scene.add(this.ground.mesh);
     this.van = new Van("van");
-    this.van.mesh.position.z = -30;
+    this.van.mesh.position.z = -40;
     this.scene.add(this.van.mesh);
     this.addSpotlight(0, 2.5, 2);
     this.spotlights[0].spotLight.position.z = 5;
@@ -23,7 +23,7 @@ Level3 = (function(_super) {
   Level3.prototype.tick = function(delta, amount) {
     Level3.__super__.tick.call(this, delta, amount);
     if (this.van.mesh.position.z < 2) {
-      this.van.mesh.position.z += 8 * delta;
+      this.van.mesh.position.z += 6 * delta;
     }
     if (this.van.mesh.position.z > this.player.mesh.position.z) {
       return this.player.canMove = false;
