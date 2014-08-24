@@ -8,19 +8,28 @@ Level4 = (function(_super) {
   __extends(Level4, _super);
 
   function Level4() {
-    var door;
     Level4.__super__.constructor.call(this);
     this.player.say(":D");
     this.ground = new Ground();
     this.scene.add(this.ground.mesh);
-    door = new Door("prize");
-    door.mesh.position.set(0, 0.2, -1.5);
-    this.scene.add(door.mesh);
-    door = new Door("back");
-    door.mesh.position.set(1.2, 0.2, 2.2);
-    this.scene.add(door.mesh);
+    this.prize = new Door("prize");
+    this.prize.mesh.position.set(0, 0.2, -1.5);
+    this.scene.add(this.prize.mesh);
+    this.finished = 0;
     this.addSpotlight(0, 2.5, 2);
   }
+
+  Level4.prototype.tick = function(delta, now) {
+    Level4.__super__.tick.call(this, delta, now);
+    if (keyboard.pressed("space")) {
+      if (this.player.mesh.position.distanceTo(this.prize.mesh.position) < 0.3) {
+        this.scene.remove(this.prize.mesh);
+      }
+    }
+    if (this.player.mesh.position.y < -3) {
+      return SceneManager.get().setScene(5);
+    }
+  };
 
   return Level4;
 

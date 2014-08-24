@@ -8,20 +8,31 @@ Level1 = (function(_super) {
   __extends(Level1, _super);
 
   function Level1() {
-    var door;
     Level1.__super__.constructor.call(this);
     this.player.say(":)");
     this.ground = new Ground();
     this.scene.add(this.ground.mesh);
-    door = new Door("door");
-    door.mesh.position.set(0, 0.2, -2);
-    this.scene.add(door.mesh);
-    door = new Door("back");
-    door.mesh.position.set(-1.2, 0.2, 2.2);
-    this.scene.add(door.mesh);
+    this.door = new Door("door");
+    this.door.mesh.position.set(0, 0.2, -2);
+    this.scene.add(this.door.mesh);
+    this.back = new Door("back");
+    this.back.mesh.position.set(-1.2, 0.2, 2.2);
+    this.scene.add(this.back.mesh);
     this.addSpotlight(1, 2.5, 2);
     this.addSpotlight(-1, 2.5, 2);
   }
+
+  Level1.prototype.tick = function(delta, amount) {
+    Level1.__super__.tick.call(this, delta, amount);
+    if (keyboard.pressed("space")) {
+      if (this.player.mesh.position.distanceTo(this.back.mesh.position) < 0.3) {
+        SceneManager.get().setScene(0);
+      }
+      if (this.player.mesh.position.distanceTo(this.door.mesh.position) < 0.3) {
+        return SceneManager.get().setScene(2);
+      }
+    }
+  };
 
   return Level1;
 

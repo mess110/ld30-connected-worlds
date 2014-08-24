@@ -8,6 +8,7 @@ Zombie = (function() {
 
   function Zombie(s) {
     var geometry, material;
+    this.s = s;
     this.dynamicTexture = new THREEx.DynamicTexture(DYNAMIC_TEXTURE_SIZE, DYNAMIC_TEXTURE_SIZE);
     this.dynamicTexture.context.font = "30px Verdana";
     geometry = new THREE.CubeGeometry(0.3, 0.3, 0.3);
@@ -16,7 +17,7 @@ Zombie = (function() {
     });
     this.mesh = new THREE.Mesh(geometry, material);
     this.baseLevel = geometry.height / 2;
-    this.mesh.position.set(0, geometry.height / 2, 0);
+    this.mesh.position.set(0, this.baseLevel, 0);
     this.mesh.receiveShadow = true;
     this.mesh.castShadow = true;
     this.speed = 2;
@@ -28,6 +29,7 @@ Zombie = (function() {
     this.dead = false;
     this.canMove = true;
     this.jumpCount = 0;
+    this.touchedGround = false;
     this.position = this.mesh.position;
     this.say(s);
   }
@@ -66,6 +68,7 @@ Zombie = (function() {
 
   Zombie.prototype.say = function(s) {
     var half;
+    this.s = s;
     this.dynamicTexture.clear();
     half = DYNAMIC_TEXTURE_SIZE / 2;
     return this.dynamicTexture.drawText(s, half - s.length * 8, half, 'white');

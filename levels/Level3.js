@@ -13,7 +13,7 @@ Level3 = (function(_super) {
     this.ground = new Ground();
     this.scene.add(this.ground.mesh);
     this.van = new Van("van");
-    this.van.mesh.position.z = -20;
+    this.van.mesh.position.z = -30;
     this.scene.add(this.van.mesh);
     this.addSpotlight(0, 2.5, 2);
     this.spotlights[0].spotLight.position.z = 5;

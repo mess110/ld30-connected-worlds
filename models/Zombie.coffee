@@ -2,6 +2,7 @@ class Zombie
   DYNAMIC_TEXTURE_SIZE = 128
 
   constructor: (s) ->
+    @s = s
     @dynamicTexture = new THREEx.DynamicTexture(DYNAMIC_TEXTURE_SIZE, DYNAMIC_TEXTURE_SIZE)
     @dynamicTexture.context.font = "30px Verdana"
 
@@ -11,7 +12,7 @@ class Zombie
     )
     @mesh = new THREE.Mesh(geometry, material)
     @baseLevel = geometry.height / 2
-    @mesh.position.set 0, geometry.height / 2, 0
+    @mesh.position.set 0, @baseLevel, 0
     @mesh.receiveShadow = true
     @mesh.castShadow = true
 
@@ -24,6 +25,7 @@ class Zombie
     @dead = false
     @canMove = true
     @jumpCount = 0
+    @touchedGround = false
 
     @position = @mesh.position
 
@@ -56,6 +58,7 @@ class Zombie
       @jumping = true
 
   say: (s) ->
+    @s = s
     @dynamicTexture.clear()
     half = DYNAMIC_TEXTURE_SIZE / 2
     @dynamicTexture.drawText(s, half - s.length * 8, half, 'white')

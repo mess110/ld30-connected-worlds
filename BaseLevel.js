@@ -48,6 +48,7 @@ BaseLevel = (function() {
     } else {
       if (!this.player.jumping) {
         this.player.mesh.position.y -= this.player.speed * delta;
+        this.player.canMove = false;
       }
     }
     this.player.move(delta);

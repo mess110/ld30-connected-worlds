@@ -25,7 +25,9 @@ sm.addScene(new Level4());
 
 sm.addScene(new Level5());
 
-sm.setScene(5);
+sm.addScene(new Level6());
+
+sm.setScene(4);
 
 camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.3, 10);
 

@@ -8,7 +8,7 @@ class Level3 extends BaseLevel
     @scene.add @ground.mesh
 
     @van = new Van("van")
-    @van.mesh.position.z = -20
+    @van.mesh.position.z = -30
     @scene.add @van.mesh
 
     @addSpotlight(0, 2.5, 2)

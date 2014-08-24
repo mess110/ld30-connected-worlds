@@ -33,6 +33,7 @@ class BaseLevel
     else
       unless @player.jumping
         @player.mesh.position.y -= @player.speed * delta
+        @player.canMove = false
 
     @player.move(delta)
 

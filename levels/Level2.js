@@ -25,14 +25,26 @@ Level2 = (function(_super) {
     door.mesh.position.set(1, 0, -2);
     door.mesh.rotation.set(-0.7, 0, -Math.PI / 2 - 0.5);
     this.scene.add(door.mesh);
-    door = new Door("door");
-    door.mesh.position.set(0, 0.2, -2);
-    this.scene.add(door.mesh);
-    door = new Door("back");
-    door.mesh.position.set(-1.2, 0.2, 2.2);
-    this.scene.add(door.mesh);
+    this.door = new Door("door");
+    this.door.mesh.position.set(0, 0.2, -2);
+    this.scene.add(this.door.mesh);
+    this.back = new Door("back");
+    this.back.mesh.position.set(-1.2, 0.2, 2.2);
+    this.scene.add(this.back.mesh);
     this.addSpotlight(0, 2.5, 2);
   }
+
+  Level2.prototype.tick = function(delta, amount) {
+    Level2.__super__.tick.call(this, delta, amount);
+    if (keyboard.pressed("space")) {
+      if (this.player.mesh.position.distanceTo(this.back.mesh.position) < 0.3) {
+        SceneManager.get().setScene(1);
+      }
+      if (this.player.mesh.position.distanceTo(this.door.mesh.position) < 0.3) {
+        return SceneManager.get().setScene(3);
+      }
+    }
+  };
 
   return Level2;
 
