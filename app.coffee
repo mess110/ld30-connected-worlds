@@ -12,70 +12,14 @@ camera.lookAt scene.position
 
 keyboard = new THREEx.KeyboardState()
 
-# add back wall
-geometry = new THREE.CubeGeometry(20, 0.1, 20, 20, 1, 20)
-material = new THREE.MeshPhongMaterial(color: new THREE.Color("gray"))
-mesh = new THREE.Mesh(geometry, material)
-mesh.receiveShadow = true
-mesh.castShadow = true
-mesh.rotateX Math.PI / 2
-mesh.position.set 0, -geometry.height / 2, -1
-scene.add mesh
+ground = new Ground()
+scene.add ground.mesh
 
-material = new THREE.MeshBasicMaterial(
-  wireframe: true
-  wireframeLinewidth: 2
-  color: new THREE.Color("black")
-)
-mesh = new THREE.Mesh(geometry.clone(), material)
-mesh.receiveShadow = true
-mesh.castShadow = true
-mesh.scale.multiplyScalar 1.01
-mesh.rotateX Math.PI / 2
-mesh.position.set 0, -geometry.height / 2, -1
-scene.add mesh
-
-# add ground
-geometry = new THREE.CubeGeometry(20, 0.1, 20, 20, 1, 20)
-material = new THREE.MeshPhongMaterial(color: new THREE.Color("gray"))
-mesh = new THREE.Mesh(geometry, material)
-mesh.receiveShadow = true
-mesh.castShadow = true
-mesh.position.set 0, -geometry.height / 2, 0
-scene.add mesh
-
-# add ground - wireframe
-material = new THREE.MeshBasicMaterial(
-  wireframe: true
-  wireframeLinewidth: 2
-  color: new THREE.Color("black")
-)
-mesh = new THREE.Mesh(geometry.clone(), material)
-mesh.receiveShadow = true
-mesh.castShadow = true
-mesh.scale.multiplyScalar 1.01
-mesh.position.set 0, -geometry.height / 2, 0
-scene.add mesh
-
-# add a cube
-geometry = new THREE.CubeGeometry(0.3, 0.3, 0.3)
-material = new THREE.MeshPhongMaterial(color: new THREE.Color("gray"))
-cube = new THREE.Mesh(geometry, material)
-cube.position.set 0.2, geometry.height / 2, 0.5
-cube.receiveShadow = true
-cube.castShadow = true
-cube.speed = 2
-scene.add cube
+player = new Zombie()
+scene.add player.mesh
 
 updateFcts.push (delta, now) ->
-  target =
-    x: cube.position.x
-    y: cube.position.y + 3
-    z: cube.position.z + 4
-  camera.position = target
-
-updateFcts.push (delta, now) ->
-  dist = zpotLight.distanceTo(cube)
+  # dist = zpotLight.distanceTo(cube)
   #if dist > 3
     #scene.remove spotLight
     #scene.remove volumetricSpotlight
@@ -83,24 +27,26 @@ updateFcts.push (delta, now) ->
     #scene.add spotLight
     #scene.add volumetricSpotlight
 
-  if keyboard.pressed("w")
-    cube.position.z -= cube.speed * delta
-  if keyboard.pressed("s")
-    cube.position.z += cube.speed * delta
-  if keyboard.pressed("a")
-    cube.position.x -= cube.speed * delta
-  if keyboard.pressed("d")
-    cube.position.x += cube.speed * delta
+  player.directionZ = -1 if keyboard.pressed("w")
+  player.directionZ = 1 if keyboard.pressed("s")
+  player.directionZ = 0 if !keyboard.pressed("s") and !keyboard.pressed("w")
+  player.directionX = -1 if keyboard.pressed("a")
+  player.directionX = 1 if keyboard.pressed("d")
+  player.directionX = 0 if !keyboard.pressed("a") and !keyboard.pressed("d")
 
-zpotLight = new Spotlight()
+  player.move(delta)
+
+zpotLight = new Spotlight(0, 2.5, 0)
 scene.add zpotLight.spotLight
 scene.add zpotLight.volumetricSpotlight
 
-updateFcts.push (delta, now) ->
-  zpotLight.lookAt(cube)
+#zpotLight2 = new Spotlight(3, 2.5, 0)
+#scene.add zpotLight2.spotLight
+#scene.add zpotLight2.volumetricSpotlight
 
-updateFcts.push ->
-  renderer.render scene, camera
+updateFcts.push (delta, now) ->
+  zpotLight.lookAt(player.mesh)
+  #zpotLight2.lookAt(player.mesh)
 
 lastTimeMsec = null
 requestAnimationFrame animate = (nowMsec) ->
@@ -112,3 +58,5 @@ requestAnimationFrame animate = (nowMsec) ->
 
   updateFcts.forEach (updateFn) ->
     updateFn deltaMsec / 1000, nowMsec / 1000
+
+  renderer.render scene, camera

@@ -1,23 +1,23 @@
 class Spotlight
-  constructor: ->
-    geometry = new THREE.CylinderGeometry(0.1, 1.5, 5, 32 * 2, 20, true)
+  constructor: (x, y, z) ->
+    geometry = new THREE.CylinderGeometry(0.05, 1.25, 6, 32 * 2, 20, true)
 
     geometry.applyMatrix new THREE.Matrix4().makeTranslation(0, -geometry.height / 2, 0)
     geometry.applyMatrix new THREE.Matrix4().makeRotationX(-Math.PI / 2)
 
     material = new THREEx.VolumetricSpotLightMaterial()
     @volumetricSpotlight  = new THREE.Mesh(geometry, material)
-    @volumetricSpotlight.position.set 1.5, 2, 0
+    @volumetricSpotlight.position.set x, y, z
     @volumetricSpotlight.lookAt new THREE.Vector3(0, 0, 0)
-    material.uniforms.lightColor.value.set "red"
-    material.uniforms.spotPosition.value = mesh.position
+    material.uniforms.lightColor.value.set "#FF0000"
+    material.uniforms.spotPosition.value = @volumetricSpotlight.position
 
     @spotLight = new THREE.SpotLight()
     @spotLight.position = @volumetricSpotlight.position
     @spotLight.color = @volumetricSpotlight.material.uniforms.lightColor.value
     @spotLight.exponent = 30
     @spotLight.angle = Math.PI / 3
-    @spotLight.intensity = 5
+    @spotLight.intensity = 4
 
     light = @spotLight
     light.castShadow = true

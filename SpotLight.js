@@ -3,23 +3,23 @@ var Spotlight;
 
 Spotlight = (function() {
 
-  function Spotlight() {
+  function Spotlight(x, y, z) {
     var geometry, light, material;
-    geometry = new THREE.CylinderGeometry(0.1, 1.5, 5, 32 * 2, 20, true);
+    geometry = new THREE.CylinderGeometry(0.05, 1.25, 6, 32 * 2, 20, true);
     geometry.applyMatrix(new THREE.Matrix4().makeTranslation(0, -geometry.height / 2, 0));
     geometry.applyMatrix(new THREE.Matrix4().makeRotationX(-Math.PI / 2));
     material = new THREEx.VolumetricSpotLightMaterial();
     this.volumetricSpotlight = new THREE.Mesh(geometry, material);
-    this.volumetricSpotlight.position.set(1.5, 2, 0);
+    this.volumetricSpotlight.position.set(x, y, z);
     this.volumetricSpotlight.lookAt(new THREE.Vector3(0, 0, 0));
-    material.uniforms.lightColor.value.set("red");
-    material.uniforms.spotPosition.value = mesh.position;
+    material.uniforms.lightColor.value.set("#FF0000");
+    material.uniforms.spotPosition.value = this.volumetricSpotlight.position;
     this.spotLight = new THREE.SpotLight();
     this.spotLight.position = this.volumetricSpotlight.position;
     this.spotLight.color = this.volumetricSpotlight.material.uniforms.lightColor.value;
     this.spotLight.exponent = 30;
     this.spotLight.angle = Math.PI / 3;
-    this.spotLight.intensity = 5;
+    this.spotLight.intensity = 4;
     light = this.spotLight;
     light.castShadow = true;
     light.shadowCameraNear = 0.01;
