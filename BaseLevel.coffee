@@ -5,7 +5,9 @@ class BaseLevel
 
     @spotlights = []
 
-    @player = new Zombie()
+    @ground = undefined
+
+    @player = new Zombie(":D")
     @player.mesh.position.setZ 1
     @scene.add @player.mesh
 
@@ -17,7 +19,6 @@ class BaseLevel
 
     @spotlights.push spotLight
 
-
   tick: (delta, now) ->
     @player.directionZ = -1 if keyboard.pressed("w")
     @player.directionZ = 1 if keyboard.pressed("s")
@@ -25,6 +26,13 @@ class BaseLevel
     @player.directionX = -1 if keyboard.pressed("a")
     @player.directionX = 1 if keyboard.pressed("d")
     @player.directionX = 0 if !keyboard.pressed("a") and !keyboard.pressed("d")
+
+    if @ground.isAboveGround(@player)
+      if keyboard.pressed("space")
+        @player.jump(delta)
+    else
+      unless @player.jumping
+        @player.mesh.position.y -= @player.speed * delta
 
     @player.move(delta)
 

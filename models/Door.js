@@ -7,9 +7,8 @@ Door = (function(_super) {
 
   __extends(Door, _super);
 
-  function Door() {
-    Door.__super__.constructor.call(this);
-    this.say("door");
+  function Door(s) {
+    Door.__super__.constructor.call(this, s);
   }
 
   return Door;

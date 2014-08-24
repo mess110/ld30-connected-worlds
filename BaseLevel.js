@@ -7,7 +7,8 @@ BaseLevel = (function() {
     this.scene = new THREE.Scene();
     this.scene.fog = new THREE.FogExp2(0x000000, 0.1);
     this.spotlights = [];
-    this.player = new Zombie();
+    this.ground = void 0;
+    this.player = new Zombie(":D");
     this.player.mesh.position.setZ(1);
     this.scene.add(this.player.mesh);
   }
@@ -39,6 +40,15 @@ BaseLevel = (function() {
     }
     if (!keyboard.pressed("a") && !keyboard.pressed("d")) {
       this.player.directionX = 0;
+    }
+    if (this.ground.isAboveGround(this.player)) {
+      if (keyboard.pressed("space")) {
+        this.player.jump(delta);
+      }
+    } else {
+      if (!this.player.jumping) {
+        this.player.mesh.position.y -= this.player.speed * delta;
+      }
     }
     this.player.move(delta);
     _ref = this.spotlights;

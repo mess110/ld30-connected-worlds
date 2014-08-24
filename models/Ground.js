@@ -5,7 +5,10 @@ Ground = (function() {
 
   function Ground() {
     var geometry, material, mesh2;
-    geometry = new THREE.CubeGeometry(3, 0.1, 5, 3, 1, 5);
+    this.x = 3;
+    this.y = 0.1;
+    this.z = 5;
+    geometry = new THREE.CubeGeometry(this.x, 0.1, this.z, this.x, 1, this.z);
     material = new THREE.MeshPhongMaterial({
       color: new THREE.Color("gray")
     });
@@ -24,6 +27,14 @@ Ground = (function() {
     mesh2.scale.multiplyScalar(1.01);
     this.mesh.add(mesh2);
   }
+
+  Ground.prototype.isAboveGround = function(player) {
+    var x, y, z;
+    x = player.mesh.position.x;
+    y = player.mesh.position.y;
+    z = player.mesh.position.z;
+    return -1 * this.x / 2 < x && x < this.x / 2 && -1 * this.z / 2 < z && z < this.z / 2 && y >= this.y;
+  };
 
   return Ground;
 

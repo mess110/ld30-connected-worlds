@@ -1,16 +1,18 @@
-class Level0 extends BaseLevel
+class Level1 extends BaseLevel
   constructor: ->
     super()
 
-    ground = new Ground()
-    @scene.add ground.mesh
+    @player.say ":)"
 
-    door = new Door()
-    door.mesh.position.set -1, 1, -2
+    @ground = new Ground()
+    @scene.add @ground.mesh
+
+    door = new Door("door")
+    door.mesh.position.set 0, 0.2, -2
     @scene.add door.mesh
 
-    door = new Door()
-    door.mesh.position.set 1, 1, -2
+    door = new Door("back")
+    door.mesh.position.set -1.2, 0.2, 2.2
     @scene.add door.mesh
 
     @addSpotlight(1, 2.5, 2)

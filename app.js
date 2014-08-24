@@ -15,7 +15,17 @@ sm = SceneManager.get();
 
 sm.addScene(new Level0());
 
-sm.setScene(0);
+sm.addScene(new Level1());
+
+sm.addScene(new Level2());
+
+sm.addScene(new Level3());
+
+sm.addScene(new Level4());
+
+sm.addScene(new Level5());
+
+sm.setScene(5);
 
 camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.3, 10);
 

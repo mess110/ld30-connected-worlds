@@ -8,19 +8,26 @@ Level0 = (function(_super) {
   __extends(Level0, _super);
 
   function Level0() {
-    var door, ground;
+    var door;
     Level0.__super__.constructor.call(this);
-    ground = new Ground();
-    this.scene.add(ground.mesh);
-    door = new Door();
-    door.mesh.position.set(-1, 1, -2);
+    this.player.say(":)");
+    this.ground = new Ground();
+    this.scene.add(this.ground.mesh);
+    door = new Door("door");
+    door.mesh.position.set(-1, 0.2, -2);
     this.scene.add(door.mesh);
-    door = new Door();
-    door.mesh.position.set(1, 1, -2);
+    door = new Door("door");
+    door.mesh.position.set(1, 0.2, -2);
     this.scene.add(door.mesh);
     this.addSpotlight(1, 2.5, 2);
     this.addSpotlight(-1, 2.5, 2);
   }
+
+  Level0.prototype.tick = function(delta, amount) {
+    var above;
+    Level0.__super__.tick.call(this, delta, amount);
+    return above = this.ground.isAboveGround(this.player);
+  };
 
   return Level0;
 
